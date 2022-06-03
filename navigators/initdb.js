@@ -21,7 +21,7 @@ const initDb = () => {
         );
     });
 };
-export default initDb;
+export default initDb;;;
 
 export function insertUser(email, full_name, password) {
     console.log(email, full_name, password)
