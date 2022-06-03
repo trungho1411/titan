@@ -107,7 +107,7 @@ const Signup = ({navigation}) => {
                                     setHidePassword={setHidePassword}
                                 />
                                 <StyledButton>
-                                    <ButtonText onPress={signUp(values)}>
+                                    <ButtonText onPress={()=>{signUp(values)}}>
                                         Sign Up
                                     </ButtonText>
                                 </StyledButton>

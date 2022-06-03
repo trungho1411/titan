@@ -24,12 +24,13 @@ const initDb = () => {
 export default initDb;
 
 export function insertUser(email, full_name, password) {
+    console.log(email, full_name, password)
     db.transaction(trx => {
         let trxQuery = trx.executeSql(
-            "insert into Users(email, full_name, password) values(${values})"
-            ,[[email, full_name, password]]
+            "insert into Users(email, full_name, password) values(?,?,?)"
+            ,[email, full_name, password]
             ,(transact,resultset) => console.log('we made it',resultset)
-            ,(transact,err) => console.log('We have encounter an Error', err)
+            ,(transact,err) => console.log('function insertUser', err)
         );
     })
 }
@@ -37,13 +38,12 @@ export function insertUser(email, full_name, password) {
 export function getUser(email, callback) {
     db.transaction(trx => {
         let trxQuery = trx.executeSql(
-            "select * from Users where email='" + email + "'"
+            "select * from Users where email=?"
             ,[email]
             ,(transact,resultset) => {
-                console.log('user',resultset);
-                callback(resultset);
+                callback(resultset.rows._array[0]);
             }
-            ,(transact,err) => console.log('We have encounter an Error', err)
+            ,(transact,err) => console.log('function getUser', err)
         );
     })
 }
