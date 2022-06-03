@@ -13,7 +13,10 @@ import Login from './../screens/Login'
 import Signup from './../screens/Signup'
 import Welcome from './../screens/Welcome'
 
+import initDb from './../navigators/initdb'
+
 const Stack = createNativeStackNavigator();
+initDb();
 
 const RootStack = () => {
     return (

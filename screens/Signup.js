@@ -26,14 +26,26 @@ import {
 
 } from './../components/styles'
 
-import {View} from 'react-native'
+import {Keyboard, View} from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 
-//colors
-const { darkLight, orange} = Colors
+//SQlite
+import {insertUser,getUser}  from './../navigators/initdb'
+
+// //colors
+ const { darkLight, orange} = Colors
+
 
 const Signup = ({navigation}) => {
     const [hidePassword, setHidePassword] = useState(true)
+    const signUp = (value) => {
+        console.log("signup@@@@@@@@@@@@@@@@@values", value);
+        insertUser(value.email, value.fullName, value.password);
+
+        getUser(value.email, (u)=>{
+            console.log("1223123123123123123", u);
+        });
+    }
     return (
         <StyledContainer>
             <KeyboardAvoidingWrapper>
@@ -46,66 +58,68 @@ const Signup = ({navigation}) => {
                             console.log(value);
                             navigation.navigate('Welcome')
                         }}
-                    >{({handleChange, handleBlur, handleSubmit, values }) => 
-                        (<StyledFormArea>
-                            <MyTextInput 
-                                label="Email Address"
-                                icon='mail'
-                                placeholder = 'name@titandms.com.au'
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange('email')}
-                                onBlur={handleBlur('email')}
-                                value={values.email}
-                                keyboardType="email-address"
-                            />
-                            <MyTextInput 
-                                label="LastName/FirstName"
-                                icon='person'
-                                placeholder = 'Your Full Name'
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange('fullName')}
-                                onBlur={handleBlur('fullName')}
-                                value={values.fullName}
-                            />
-                            <MyTextInput 
-                                label='Password'
-                                icon='lock'
-                                placeholder = '********'
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange('password')}
-                                onBlur={handleBlur('password')}
-                                value={values.password}
-                                secureTextEntry={hidePassword}
-                                isPassword={true}
-                                hidePassword = {hidePassword}
-                                setHidePassword={setHidePassword}
-                            />
-                            <MyTextInput 
-                                label='Confirm Password'
-                                icon='lock'
-                                placeholder = '********'
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange('confirmPassword')}
-                                onBlur={handleBlur('confirmPassword')}
-                                value={values.confirmPassword}
-                                secureTextEntry={hidePassword}
-                                isPassword={true}
-                                hidePassword = {hidePassword}
-                                setHidePassword={setHidePassword}
-                            />
-                            <StyledButton>
-                                <ButtonText onPress={handleSubmit}>
-                                    Sign Up
-                                </ButtonText>
-                            </StyledButton>
-                            <Line />
-                            <ExtraView>
-                                <ExtraText>Already have an account ? </ExtraText>
-                                <TextLink onPress={() => navigation.navigate('.') }>
-                                    <TextLinkContent>Login</TextLinkContent>
-                                </TextLink>
-                            </ExtraView>
-                        </StyledFormArea>)
+                    >{
+                        ({handleChange, handleBlur, handleSubmit, values }) => (
+                            <StyledFormArea>
+                                <MyTextInput 
+                                    label="Email Address"
+                                    icon='mail'
+                                    placeholder = 'name@titandms.com.au'
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange('email')}
+                                    onBlur={handleBlur('email')}
+                                    value={values.email}
+                                    keyboardType="email-address"
+                                />
+                                <MyTextInput 
+                                    label="LastName/FirstName"
+                                    icon='person'
+                                    placeholder = 'Your Full Name'
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange('fullName')}
+                                    onBlur={handleBlur('fullName')}
+                                    value={values.fullName}
+                                />
+                                <MyTextInput 
+                                    label='Password'
+                                    icon='lock'
+                                    placeholder = '********'
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange('password')}
+                                    onBlur={handleBlur('password')}
+                                    value={values.password}
+                                    secureTextEntry={hidePassword}
+                                    isPassword={true}
+                                    hidePassword = {hidePassword}
+                                    setHidePassword={setHidePassword}
+                                />
+                                <MyTextInput 
+                                    label='Confirm Password'
+                                    icon='lock'
+                                    placeholder = '********'
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange('confirmPassword')}
+                                    onBlur={handleBlur('confirmPassword')}
+                                    value={values.confirmPassword}
+                                    secureTextEntry={hidePassword}
+                                    isPassword={true}
+                                    hidePassword = {hidePassword}
+                                    setHidePassword={setHidePassword}
+                                />
+                                <StyledButton>
+                                    <ButtonText onPress={signUp(values)}>
+                                        Sign Up
+                                    </ButtonText>
+                                </StyledButton>
+                                <Line />
+                                <ExtraView>
+                                    <ExtraText>Already have an account ? </ExtraText>
+                                    <TextLink onPress={() => navigation.navigate('.') }>
+                                        <TextLinkContent>Login</TextLinkContent>
+                                    </TextLink>
+                                </ExtraView>
+                            </StyledFormArea>
+                        )
                     }
                     </Formik>
                 </InnerContainer>

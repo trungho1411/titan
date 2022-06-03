@@ -24,7 +24,10 @@
     "react-native-screens": "^3.13.1",
     "react-native-web": "0.17.7",
     "react-router-native": "^5.3.2",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "expo-file-system": "~14.0.0",
+    "expo-asset": "~8.5.0",
+    "expo-sqlite": "~10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
