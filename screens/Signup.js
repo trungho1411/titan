@@ -40,10 +40,8 @@ const Signup = ({navigation}) => {
     const [hidePassword, setHidePassword] = useState(true)
     const signUp = (value) => {
         console.log("signup@@@@@@@@@@@@@@@@@values", value);
-        insertUser(value.email, value.fullName, value.password);
-
-        getUser(value.email, (u)=>{
-            console.log("1223123123123123123", u);
+        insertUser(value.email, value.fullName, value.password, ()=>{
+            //back to login
         });
     }
     return (
@@ -59,7 +57,7 @@ const Signup = ({navigation}) => {
                             navigation.navigate('Welcome')
                         }}
                     >{
-                        ({handleChange, handleBlur, handleSubmit, values }) => (
+                        ({handleChange, handleBlur, values }) => (
                             <StyledFormArea>
                                 <MyTextInput 
                                     label="Email Address"

@@ -38,6 +38,7 @@ import {
 // import {openDatabase} from 'react-native-sqlite-storage';
 // var SQLite = require('react-native-sqlite-storage')
 import * as SQLite from 'expo-sqlite';
+import initDb from '../navigators/initdb';
 
 const win = Dimensions.get('screen');
 
@@ -90,6 +91,26 @@ const styles = StyleSheet.create({
 const Login = ({navigation}) => {
   const [hidePassword, setHidePassword] = useState(true);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  const getUserFromEmail = (value) => {
+    console.log(value)
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT EMAIL FROM Users WHERE email=?",
+        [email],
+        (tx, results) => {
+          for (let i =0; i<=email.length; i++){
+            if(results.email === email[i]){
+
+            }else{
+
+            }
+          }
+
+        }
+      )
+    })
+  }
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
